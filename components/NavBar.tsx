@@ -5,31 +5,28 @@
  */
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
-import { auth, signIn, signOut } from '@/auth'
+import { auth, signIn } from '@/auth'
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import NavSheet from "@/components/NavSheet";
+import { BuildingIcon } from "lucide-react";
 
 
-export default async function NavBar({
-    children,
-}: Readonly<{
-    children: React.ReactNode;
-}>) {
+export default async function NavBar() {
 
     const session = await auth();
 
     return (
-        <div className="fixed top-0 flex h-screen w-full">
+        <div className="fixed top-0 flex w-full z-50">
             <div className="hidden">
                 <div className="flex h-full flex-col justify-between py-6 px-4">
                     <div className="space-y-6">
-                        <Link href="#" className="flex items-center gap-2 font-bold" prefetch={false}>
-                            <MountainIcon className="h-6 w-6" />
-                            <span className="text-lg">Acme Inc</span>
+                        <Link href="/" className="flex items-center gap-2 font-bold" prefetch={false}>
+                            <BuildingIcon className="h-6 w-6" />
+                            <span className="text-lg">Tolty</span>
                         </Link>
                         <nav className="space-y-1">
                             <Link
-                                href="#"
+                                href="/"
                                 className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
                                 prefetch={false}
                             >
@@ -37,28 +34,20 @@ export default async function NavBar({
                                 Home
                             </Link>
                             <Link
-                                href="#"
+                                href="/dashboard"
                                 className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
                                 prefetch={false}
                             >
                                 <LayoutGridIcon className="h-5 w-5" />
-                                Products
+                                Dashboard
                             </Link>
                             <Link
-                                href="#"
+                                href={`/user/${session?.id}`}
                                 className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
                                 prefetch={false}
                             >
                                 <UsersIcon className="h-5 w-5" />
-                                Customers
-                            </Link>
-                            <Link
-                                href="#"
-                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                prefetch={false}
-                            >
-                                <ActivityIcon className="h-5 w-5" />
-                                Analytics
+                                Profile
                             </Link>
                         </nav>
                     </div>
@@ -89,85 +78,13 @@ export default async function NavBar({
             <div className="flex-1">
                 <header className="sticky top-0 z-10 border-b bg-white px-4 py-3 dark:border-gray-800 dark:bg-gray-900">
                     <div className="flex items-center justify-between">
-                        <Link href="#" className="flex items-center gap-2 font-bold" prefetch={false}>
-                            <MountainIcon className="h-6 w-6" />
-                            <span className="text-lg">Acme Inc</span>
+                        <Link href="/" className="flex items-center gap-2 font-bold" prefetch={false}>
+                            <BuildingIcon className="h-6 w-6" />
+                            <span className="text-lg">Tolty</span>
                         </Link>
-                        <Sheet>
-                            <SheetTrigger asChild>
-                                <Button variant="outline" size="icon">
-                                    <MenuIcon className="h-6 w-6" />
-                                    <span className="sr-only">Toggle navigation</span>
-                                </Button>
-                            </SheetTrigger>
-                            <SheetContent side="left" className="w-64">
-                                <div className="flex h-full flex-col justify-between py-6 px-4">
-                                    <div className="space-y-6">
-                                        <nav className="space-y-1">
-                                            <Link
-                                                href="#"
-                                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                                prefetch={false}
-                                            >
-                                                <HomeIcon className="h-5 w-5" />
-                                                Home
-                                            </Link>
-                                            <Link
-                                                href="#"
-                                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                                prefetch={false}
-                                            >
-                                                <LayoutGridIcon className="h-5 w-5" />
-                                                Products
-                                            </Link>
-                                            <Link
-                                                href="#"
-                                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                                prefetch={false}
-                                            >
-                                                <UsersIcon className="h-5 w-5" />
-                                                Customers
-                                            </Link>
-                                            <Link
-                                                href="#"
-                                                className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-50"
-                                                prefetch={false}
-                                            >
-                                                <ActivityIcon className="h-5 w-5" />
-                                                Analytics
-                                            </Link>
-                                        </nav>
-                                    </div>
-                                    <div className="space-y-4">
-                                        {session && session?.user ? (
-                                            <Link href={`user/${session?.id}`}>
-                                                <Avatar className='size-10'>
-                                                    <AvatarImage
-                                                        src={session.user.image || ""}
-                                                        alt={session.user.name || ""}
-                                                    />
-                                                </Avatar>
-                                            </Link>
-                                        ) : (
-                                            <form action={async () => {
-                                                "use server";
-
-                                                await signIn("github")
-                                            }}>
-                                                <Button variant="outline" size="sm" className="w-full" type="submit">
-                                                    Log in
-                                                </Button>
-                                            </form>
-                                        )}
-                                    </div>
-                                </div>
-                            </SheetContent>
-                        </Sheet>
+                        <NavSheet />
                     </div>
                 </header>
-                <main className="">
-                    {children}
-                </main>
             </div>
         </div>
     )
